@@ -1,0 +1,26 @@
+{
+  "name": "maxilius",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Maxilius Design System — tokens, React components, and documentation",
+  "workspaces": [
+    "packages/*",
+    "apps/*"
+  ],
+  "scripts": {
+    "build:tokens": "npm run build --workspace=@maxilius/tokens",
+    "build:react": "npm run build --workspace=@maxilius/react",
+    "build": "npm run build:tokens && npm run build:react",
+    "docs": "npm run storybook --workspace=@maxilius/docs",
+    "docs:build": "npm run build-storybook --workspace=@maxilius/docs",
+    "format": "prettier --write \"**/*.{ts,tsx,css,json,md}\"",
+    "typecheck": "tsc -b packages/react"
+  },
+  "devDependencies": {
+    "prettier": "^3.3.3",
+    "typescript": "^5.5.4"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
