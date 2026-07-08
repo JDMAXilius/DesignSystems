@@ -52,7 +52,7 @@ export function Accordion({
   );
 }
 
-export interface AccordionItemProps extends HTMLAttributes<HTMLDivElement> {
+export interface AccordionItemProps extends Omit<HTMLAttributes<HTMLDivElement>, 'title'> {
   /** Unique value identifying this item. */
   value: string;
   /** Header content. */
