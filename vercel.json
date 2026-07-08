@@ -2,6 +2,6 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "framework": null,
   "installCommand": "npm install",
-  "buildCommand": "npm run build:tokens && npm run docs:build",
-  "outputDirectory": "apps/docs/storybook-static"
+  "buildCommand": "npm run build --workspace=@maxilius/tokens && npm run build-storybook --workspace=@maxilius/docs",
+  "outputDirectory": "storybook-static"
 }
