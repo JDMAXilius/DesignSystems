@@ -1,0 +1,94 @@
+.mx-input-wrap {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  width: 100%;
+}
+
+.mx-input {
+  width: 100%;
+  border: var(--mx-border-width-thin) solid var(--mx-border-default);
+  border-radius: var(--mx-radius-md);
+  background: var(--mx-bg-surface);
+  color: var(--mx-text-primary);
+  font-family: var(--mx-font-family-sans);
+  transition:
+    border-color var(--mx-motion-duration-fast) var(--mx-motion-easing-standard),
+    box-shadow var(--mx-motion-duration-fast) var(--mx-motion-easing-standard);
+}
+
+.mx-input::placeholder {
+  color: var(--mx-text-muted);
+}
+
+.mx-input:hover:not(:disabled):not(:focus) {
+  border-color: var(--mx-border-strong);
+}
+
+.mx-input:focus {
+  outline: none;
+  border-color: var(--mx-border-focus);
+  box-shadow: 0 0 0 3px var(--mx-action-primary-subtle-bg);
+}
+
+.mx-input:disabled {
+  background: var(--mx-action-disabled-bg);
+  color: var(--mx-action-disabled-text);
+  border-color: var(--mx-action-disabled-border);
+  cursor: not-allowed;
+}
+
+.mx-input--invalid {
+  border-color: var(--mx-feedback-danger-icon);
+}
+
+.mx-input--invalid:focus {
+  border-color: var(--mx-feedback-danger-icon);
+  box-shadow: 0 0 0 3px var(--mx-feedback-danger-bg);
+}
+
+/* sizes */
+.mx-input--sm {
+  height: var(--mx-size-control-sm);
+  padding: 0 var(--mx-space-3);
+  font-size: var(--mx-font-size-sm);
+}
+
+.mx-input--md {
+  height: var(--mx-size-control-md);
+  padding: 0 var(--mx-space-3);
+  font-size: var(--mx-font-size-sm);
+}
+
+.mx-input--lg {
+  height: var(--mx-size-control-lg);
+  padding: 0 var(--mx-space-4);
+  font-size: var(--mx-font-size-md);
+}
+
+/* icons */
+.mx-input__icon {
+  position: absolute;
+  color: var(--mx-text-muted);
+  pointer-events: none;
+}
+
+.mx-input__icon--start {
+  left: var(--mx-space-3);
+}
+
+.mx-input__icon--end {
+  right: var(--mx-space-3);
+}
+
+.mx-input--icon-start {
+  padding-left: var(--mx-space-8);
+}
+
+.mx-input--icon-end {
+  padding-right: var(--mx-space-8);
+}
+
+.mx-input-wrap[data-disabled] .mx-input__icon {
+  color: var(--mx-action-disabled-text);
+}

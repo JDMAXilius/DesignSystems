@@ -1,0 +1,19 @@
+.mx-label {
+  display: inline-flex;
+  align-items: baseline;
+  gap: var(--mx-space-1);
+  font-family: var(--mx-font-family-sans);
+  font-size: var(--mx-font-size-sm);
+  font-weight: var(--mx-font-weight-medium);
+  line-height: var(--mx-font-line-height-snug);
+  color: var(--mx-text-primary);
+}
+
+.mx-label--muted {
+  color: var(--mx-text-secondary);
+  font-weight: var(--mx-font-weight-regular);
+}
+
+.mx-label__required {
+  color: var(--mx-text-danger);
+}

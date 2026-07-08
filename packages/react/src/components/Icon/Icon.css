@@ -1,0 +1,19 @@
+.mx-icon {
+  flex-shrink: 0;
+  vertical-align: middle;
+}
+
+.mx-icon--sm {
+  width: var(--mx-size-icon-sm);
+  height: var(--mx-size-icon-sm);
+}
+
+.mx-icon--md {
+  width: var(--mx-size-icon-md);
+  height: var(--mx-size-icon-md);
+}
+
+.mx-icon--lg {
+  width: var(--mx-size-icon-lg);
+  height: var(--mx-size-icon-lg);
+}
