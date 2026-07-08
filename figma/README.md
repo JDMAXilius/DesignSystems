@@ -7,6 +7,10 @@ Code is the source of truth; Figma mirrors it.
 **[Maxilius Design System](https://www.figma.com/design/wGsy9EBrinOPG2mpROcyeb)**
 (file key `wGsy9EBrinOPG2mpROcyeb`, Juan Diego Lugo's team)
 
+Pages:
+- [`Cover / Styleguide`](https://www.figma.com/design/wGsy9EBrinOPG2mpROcyeb/Maxilius-Design-System?node-id=0-1) — palette ramps + sync notes
+- [`Components`](https://www.figma.com/design/wGsy9EBrinOPG2mpROcyeb/Maxilius-Design-System?node-id=4-16) — all 38 components in 10 content-fit sections
+
 Synced 2026-07-08 from `@maxilius/tokens`:
 
 | Figma collection | Contents | Mode(s) |
