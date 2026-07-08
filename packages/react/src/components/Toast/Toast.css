@@ -1,0 +1,82 @@
+.mx-toast-viewport {
+  position: fixed;
+  bottom: var(--mx-space-6);
+  right: var(--mx-space-6);
+  z-index: var(--mx-z-toast);
+  display: flex;
+  flex-direction: column;
+  gap: var(--mx-space-3);
+  max-width: 24rem;
+  width: calc(100vw - var(--mx-space-12));
+}
+
+.mx-toast {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--mx-space-3);
+  padding: var(--mx-space-4);
+  border: var(--mx-border-width-thin) solid var(--mx-border-default);
+  border-radius: var(--mx-radius-lg);
+  background: var(--mx-bg-surface-raised);
+  box-shadow: var(--mx-shadow-lg);
+  font-family: var(--mx-font-family-sans);
+  animation: mx-toast-in var(--mx-motion-duration-base) var(--mx-motion-easing-enter);
+}
+
+@keyframes mx-toast-in {
+  from {
+    opacity: 0;
+    transform: translateY(var(--mx-space-2));
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.mx-toast__icon {
+  margin-top: 2px;
+}
+
+.mx-toast--info .mx-toast__icon { color: var(--mx-feedback-info-icon); }
+.mx-toast--success .mx-toast__icon { color: var(--mx-feedback-success-icon); }
+.mx-toast--warning .mx-toast__icon { color: var(--mx-feedback-warning-icon); }
+.mx-toast--danger .mx-toast__icon { color: var(--mx-feedback-danger-icon); }
+
+.mx-toast__body {
+  flex: 1;
+  min-width: 0;
+}
+
+.mx-toast__title {
+  font-size: var(--mx-font-size-sm);
+  font-weight: var(--mx-font-weight-semibold);
+  line-height: var(--mx-font-line-height-snug);
+  color: var(--mx-text-primary);
+}
+
+.mx-toast__description {
+  margin-top: var(--mx-space-1);
+  font-size: var(--mx-font-size-sm);
+  line-height: var(--mx-font-line-height-snug);
+  color: var(--mx-text-secondary);
+}
+
+.mx-toast__close {
+  display: inline-flex;
+  padding: var(--mx-space-1);
+  border: 0;
+  border-radius: var(--mx-radius-sm);
+  background: transparent;
+  color: var(--mx-text-muted);
+  cursor: pointer;
+}
+
+.mx-toast__close:hover {
+  color: var(--mx-text-primary);
+  background: var(--mx-bg-surface-sunken);
+}
+
+.mx-toast__close:focus-visible {
+  outline: var(--mx-border-width-thick) solid var(--mx-focus-ring);
+}
