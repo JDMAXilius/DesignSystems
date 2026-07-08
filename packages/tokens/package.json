@@ -1,0 +1,25 @@
+{
+  "name": "@maxilius/tokens",
+  "version": "0.1.0",
+  "description": "Maxilius Design System — design tokens (DTCG JSON → CSS variables, JS, Figma)",
+  "license": "MIT",
+  "type": "module",
+  "main": "./dist/js/tokens.mjs",
+  "types": "./dist/js/tokens.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/js/tokens.d.ts",
+      "default": "./dist/js/tokens.mjs"
+    },
+    "./css": "./dist/css/tokens.css",
+    "./json": "./dist/json/tokens.json",
+    "./figma": "./dist/figma/variables.json"
+  },
+  "files": [
+    "dist",
+    "src"
+  ],
+  "scripts": {
+    "build": "node build.mjs"
+  }
+}
