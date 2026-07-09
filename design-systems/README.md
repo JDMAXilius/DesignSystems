@@ -36,6 +36,7 @@ scan those first — they're the distilled rules.
 | 06 | [Iconography](06-iconography.md) | Icon style, sizes, icon + text pairing |
 | 07 | [Imagery & illustration](07-imagery-illustration.md) | Photography, illustration, gradients, overlays |
 | 08 | [Motion & animation](08-motion-animation.md) | Durations, easing, what to animate |
+| 21 | [Visual hierarchy & composition](21-visual-hierarchy.md) | Focal points, alignment, negative space, balance |
 
 ### Components
 
@@ -58,6 +59,8 @@ scan those first — they're the distilled rules.
 | 18 | [Design tokens](18-design-tokens.md) | Token architecture + copy-paste starter sheet |
 | 19 | [Theming & dark mode](19-theming-dark-mode.md) | Dark mode, brand theming |
 | 20 | [Governance](20-governance.md) | Versioning, contribution, deprecation |
+| 22 | [Design process](22-design-process.md) | Blank page → wireframe → system → shipped |
+| 23 | [Brand & logo](23-brand-logo.md) | Logo variants, clear space, misuse rules |
 
 ### Checklists
 
