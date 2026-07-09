@@ -45,6 +45,12 @@ SF Symbols are an Apple-only, licensed font — **unavailable on Android and on 
 - **Option B — SF Symbols on iOS + fallback on Android:** most native on iOS via `Image(systemName:)` / an `sf-symbols` RN lib, fallback on Android. Requires maintaining the mapping table.
 - **Document the choice per app** and keep the mapping table as the single source of truth. Aurora recommends Option A unless the app wants maximum iOS nativeness.
 
+### Rendering-mode guidance
+- **Monochrome** (default): the icon takes one color — use `text-primary` for neutral icons, a status color for status icons.
+- **Hierarchical**: a single accent (e.g. violet-500) with the symbol's built-in opacity layering — good for a richer, still-tinted look.
+- **Palette / multicolor**: reserve for illustrative moments; keep it rare so icons stay legible on the dark canvas.
+- Fallback icons are single-stroke, so they map cleanly to monochrome and hierarchical only.
+
 ## Tokens
 DTCG group `icon.size` (primitive).
 

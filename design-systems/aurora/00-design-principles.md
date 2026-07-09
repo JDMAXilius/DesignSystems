@@ -7,17 +7,31 @@ Aurora is an iOS-first mobile design system with two implementations — SwiftUI
 
 **1. iOS-first, native-feeling.** Default to Apple's Human Interface Guidelines. Aurora should feel like it was born on iOS — large collapsing titles, bottom sheets with detents, edge-swipe back, SF Symbols, spring physics, haptics. Android is supported through React Native and stays first-class, but iOS is the source of truth; Android follows Material only where following iOS would feel foreign on the platform.
 
+> In practice: when you can't decide a behavior, ask "what does a great iOS app do here?" before you ask "what's easiest to build cross-platform?"
+
 **2. Luminous and tactile.** Aurora is a deep, calm, premium dark canvas (ink-950 `#0A0E17`) lit by aurora-colored accents — violet, teal, pink. Light is a scarce resource: one accent moment per screen. Every surface reads as pressable — corners are continuous, presses scale to 0.97, the primary action can carry a soft aurora glow. The system should feel like something you want to touch.
+
+> In practice: budget accent like ink is free and light is expensive. If two things glow, one of them is wrong.
 
 **3. Touch-first.** Fingers, not cursors. The hard floor is a 44×44pt touch target (48dp on Android). Controls that look smaller extend their tap area rather than shrinking the target. Adjacent targets keep ≥8pt between them. We design for thumbs reaching across a moving screen, not pixels under a mouse.
 
+> In practice: a 24pt glyph is fine to draw, but its tap area is still 44pt — extend it with `.contentShape`/`hitSlop`, never shrink the target.
+
 **4. Motion and haptics are the feel.** Motion is spring physics, not linear duration — snappy for taps, smooth for sheets, bouncy for playful reveals. Haptics are specified by intent (impact on primary tap, selection on toggle, notification on submit) and are never spammed. Motion and haptics carry the brand as much as color does, and both bow to Reduce Motion.
+
+> In practice: one haptic per user action, and every spring has a Reduce-Motion fallback to a quick fade.
 
 **5. One fixed appearance.** Aurora locks to a single dark "midnight" look and does **not** follow the OS light/dark setting. Tokens carry exactly one value each — there are no light/dark pairs, no `$modes`, no dynamic color providers. See "Why one fixed appearance" below.
 
+> In practice: if you ever type `useColorScheme` or add a `.light` token, stop — that is not Aurora.
+
 **6. Accessible by default.** WCAG 2.2 AA is the floor, not the goal: text ≥4.5:1 (≥3:1 for large/bold), UI and icons ≥3:1, VoiceOver on every control, Dynamic Type everywhere with reflowing layouts, Reduce Motion, Reduce Transparency, Bold Text. Status is never signaled by color alone.
 
+> In practice: accessibility is a gate, not a polish pass — a screen that fails AA does not ship, however good it looks.
+
 **7. One system, two platforms.** A single DTCG token source generates `Aurora.*` for SwiftUI and `tokens.*` for React Native. A color, a radius, a spring is defined once and consumed identically on both platforms. Divergence between iOS and Android is deliberate and documented (see [01-platforms-conventions.md](01-platforms-conventions.md)), never accidental drift.
+
+> In practice: never hardcode a value a token already carries — if SwiftUI and RN disagree on a number, one of them skipped the token.
 
 ## Why one fixed appearance
 
@@ -44,6 +58,11 @@ Worked examples:
 - *Native gesture vs. consistency.* iOS gives edge-swipe-back for free; Android's system back is a hardware/gesture affordance. Consistency (5) would say "same gesture everywhere," but iOS-native (3) outranks it — keep edge-swipe on iOS, honor the platform back on Android.
 - *Density vs. touch.* A dense list could fit more rows by shrinking touch targets to 36pt. Touch-first (2) beats brand density: keep 44pt rows, gain density elsewhere.
 - *Motion vs. accessibility.* A bouncy hero reveal is on-brand, but a user has Reduce Motion on. Accessibility (1) beats feel (4): swap the spring for a quick fade.
+- *Blur vs. Reduce Transparency.* A nav bar uses `.ultraThinMaterial` for that very-iOS blur. A user turns on Reduce Transparency. Accessibility (1) beats brand (4): swap the blur for a solid ink-800 surface — the chrome stays legible, the effect steps aside.
+- *Two accents fighting.* A screen has a violet primary CTA and a teal "active" state visible at once. Both are accent — the luminous principle (4) says one moment per screen. Demote one: keep the CTA violet and let the active state read through position and a subtler ink treatment, or vice versa.
+- *Platform-perfect vs. shared code.* A shared RN component could get a bespoke iOS-only animation. Consistency (5) is lowest priority, so this is allowed — but only if it does not fork the token values or the accessibility behavior, which sit above it.
+
+When principles genuinely tie — two options both satisfy every higher principle — choose the one that is more iOS-native, then the one that is simpler to maintain. Document the call in the component doc so the next person inherits the reasoning, not just the result.
 
 ## Do / Don't
 
