@@ -79,6 +79,36 @@ Key: `text-sm` 500 `cloud-500`; value: `text-sm` `cloud-900`. Two-column grid, k
 - Prev/next chevrons (20px icons) always present; disabled at ends (50% opacity, `not-allowed`).
 - Show "1 … 4 5 6 … 24" with ellipsis beyond 7 pages; pair with "Showing 41–60 of 480" in `text-sm` `cloud-500`.
 
+### Avatars
+
+| Property | Value |
+|---|---|
+| Sizes | 24px (dense lists) / 32px (table rows, comments) / 40px (headers, default) / 64px (profile pages) |
+| Shape | `radius-full` circle |
+| Image | `object-fit: cover`, centered |
+| Initials fallback | 1–2 uppercase letters, weight 600, when no image is available |
+| Fallback background | Deterministic: hash the person's name to pick a 100-tint (`sky-100`, `twilight-100`, success/warning/danger tints); text uses the 700-shade of the same hue (e.g. `sky-100` bg + `sky-700` text) |
+| Group overlap | Stacked avatars overlap by 25% of their width, each with a 2px `cloud-0` ring |
+| Group cap | Max 4 visible, then a "+N" overflow chip (`cloud-100` bg, `cloud-600` text, same size and ring) |
+| Status dot | Bottom-right, 25% of avatar size, 2px `cloud-0` ring; #16A34A online, `cloud-400` offline |
+| Accessibility | Always `alt` (images) or `aria-label` (initials) with the person's full name; status dots pair with a text label nearby |
+
+Hash the name, don't randomize: the same person must get the same color on every render and every page.
+
+### Accordions
+
+| Property | Value |
+|---|---|
+| Container | Single bordered container: 1px `cloud-200`, `radius-lg` (16px), 1px `cloud-200` internal dividers — or a plain divider list with no outer border |
+| Header | Full-width button, 48–56px height, `text-md` (16px) weight 600, `cloud-900`, padding-x `space-4`–`space-6` |
+| Chevron | 20px, right-aligned, `cloud-500`, rotates 180° over 250ms (`duration-base`) |
+| Panel | Padding `space-4` (16px) vertical / `space-6` (24px) horizontal, `text-sm`, `cloud-600` |
+| Open behavior | Multiple panels may be open by default; force single-open only when panels are mutually exclusive (e.g. picking one plan) |
+| Semantics | Native `<details>`/`<summary>` is the accessible default; enhance styling on top of it |
+| Hover / focus | Header hover `cloud-50`; focus-visible 2px `sky-500` ring |
+
+FAQ is the canonical use. Don't hide critical content — pricing, legal terms, required steps — in collapsed accordions on desktop; collapse is for optional depth, not for burying obligations.
+
 ## Tokens
 
 ```css
@@ -111,6 +141,16 @@ Key: `text-sm` 500 `cloud-500`; value: `text-sm` `cloud-900`. Two-column grid, k
   --cds-stat-label-color: #475569;     /* cloud-600 */
   --cds-delta-up: #15803D;
   --cds-delta-down: #B91C1C;
+
+  /* Avatar */
+  --cds-avatar-ring: #FFFFFF;          /* cloud-0 */
+  --cds-avatar-sky-bg: #E0F2FE;   --cds-avatar-sky-text: #0369A1;      /* sky-100 / sky-700 */
+  --cds-avatar-twilight-bg: #E0E7FF; --cds-avatar-twilight-text: #4338CA; /* twilight-100 / twilight-700 */
+
+  /* Accordion */
+  --cds-accordion-border: 1px solid #E2E8F0;  /* cloud-200 */
+  --cds-accordion-radius: 16px;               /* radius-lg */
+  --cds-accordion-duration: 250ms;            /* duration-base */
 
   /* Layers */
   --cds-z-sticky: 1100; --cds-z-tooltip: 1800;
@@ -218,6 +258,97 @@ Key: `text-sm` 500 `cloud-500`; value: `text-sm` `cloud-900`. Two-column grid, k
 .cds-stat__delta--down { color: var(--cds-delta-down); }
 ```
 
+### Avatar with initials fallback and group
+
+```html
+<span class="cds-avatar cds-avatar--sky" aria-label="Amara Okafor">AO</span>
+
+<div class="cds-avatar-group">
+  <img class="cds-avatar" src="amara.jpg" alt="Amara Okafor">
+  <span class="cds-avatar cds-avatar--twilight" aria-label="Jonas Lindqvist">JL</span>
+  <img class="cds-avatar" src="mei.jpg" alt="Mei Tanaka">
+  <span class="cds-avatar cds-avatar--sky" aria-label="Priya Raman">PR</span>
+  <span class="cds-avatar cds-avatar--overflow" aria-label="3 more people">+3</span>
+</div>
+```
+
+```css
+.cds-avatar {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 40px; height: 40px;                 /* 24 / 32 / 40 / 64 */
+  border-radius: 9999px;                     /* radius-full */
+  object-fit: cover;
+  font-size: 14px; font-weight: 600;
+}
+.cds-avatar--sky      { background: var(--cds-avatar-sky-bg);      color: var(--cds-avatar-sky-text); }
+.cds-avatar--twilight { background: var(--cds-avatar-twilight-bg); color: var(--cds-avatar-twilight-text); }
+.cds-avatar--overflow { background: #F1F5F9; color: #475569; }     /* cloud-100 / cloud-600 */
+.cds-avatar-group { display: flex; }
+.cds-avatar-group .cds-avatar {
+  box-shadow: 0 0 0 2px var(--cds-avatar-ring);  /* 2px cloud-0 ring */
+}
+.cds-avatar-group .cds-avatar + .cds-avatar { margin-left: -10px; }  /* 25% overlap at 40px */
+```
+
+Pick the tint class by hashing the name (e.g. sum of character codes modulo the palette length) so "Amara Okafor" is sky-tinted everywhere, forever. A status dot, when needed, is a 10px circle (25% of a 40px avatar) absolutely positioned bottom-right with the same 2px `cloud-0` ring.
+
+### Accordion (enhanced native details/summary)
+
+```html
+<div class="cds-accordion">
+  <details class="cds-accordion__item" open>
+    <summary class="cds-accordion__header">
+      Can I change plans later?
+      <svg class="cds-accordion__chevron" width="20" height="20" aria-hidden="true"><!-- chevron-down --></svg>
+    </summary>
+    <div class="cds-accordion__panel">
+      <p>Yes — upgrades apply immediately and downgrades apply at the next billing cycle.</p>
+    </div>
+  </details>
+  <details class="cds-accordion__item">
+    <summary class="cds-accordion__header">
+      How do refunds work?
+      <svg class="cds-accordion__chevron" width="20" height="20" aria-hidden="true"><!-- chevron-down --></svg>
+    </summary>
+    <div class="cds-accordion__panel">
+      <p>Annual plans are refundable in full within 30 days of purchase.</p>
+    </div>
+  </details>
+</div>
+```
+
+```css
+.cds-accordion {
+  border: var(--cds-accordion-border);
+  border-radius: var(--cds-accordion-radius);
+  overflow: hidden;
+}
+.cds-accordion__item + .cds-accordion__item { border-top: var(--cds-accordion-border); }
+.cds-accordion__header {
+  display: flex; align-items: center; justify-content: space-between;
+  min-height: 48px; padding: 12px 24px;      /* 48–56px header, space-6 x */
+  font-size: 16px; line-height: 24px; font-weight: 600;
+  color: #0F172A;                            /* cloud-900 */
+  cursor: pointer; list-style: none;
+}
+.cds-accordion__header::-webkit-details-marker { display: none; }
+.cds-accordion__header:hover { background: #F8FAFC; }               /* cloud-50 */
+.cds-accordion__header:focus-visible { outline: 2px solid #0EA5E9; outline-offset: -2px; }
+.cds-accordion__chevron {
+  color: #64748B;                            /* cloud-500 */
+  transition: transform var(--cds-accordion-duration) cubic-bezier(0.2, 0, 0, 1);
+}
+.cds-accordion__item[open] .cds-accordion__chevron { transform: rotate(180deg); }
+.cds-accordion__panel {
+  padding: 0 24px 16px;                      /* space-6 x, space-4 bottom */
+  font-size: 14px; line-height: 20px;
+  color: #475569;                            /* cloud-600 */
+}
+@media (prefers-reduced-motion: reduce) { .cds-accordion__chevron { transition: none; } }
+```
+
+Native `<details>` keeps every panel independently openable — the default. Only add scripting to force single-open when panels are truly mutually exclusive.
+
 ## ✅ Do / ❌ Don't
 
 | ✅ Do | ❌ Don't |
@@ -234,6 +365,11 @@ Key: `text-sm` 500 `cloud-500`; value: `text-sm` `cloud-900`. Two-column grid, k
 | Show deltas with an arrow icon plus #15803D / #B91C1C text | Don't mark a drop with red text only — pair the color with the down arrow |
 | Mark the current page with solid `sky-600` and `aria-current="page"` | Don't indicate the current page with a slightly darker gray — it fails the 3:1 UI contrast floor |
 | Use "1 … 4 5 6 … 24" plus "Showing 41–60 of 480" for long result sets | Don't render 24 numbered buttons in a row — it wraps on mobile and buries prev/next |
+| Pick avatar fallback colors by hashing the name — same person, same tint everywhere | Don't randomize initials backgrounds per render — a person who changes color between pages looks like two people |
+| Give every avatar an `alt` or `aria-label` with the person's full name | Don't ship decorative-only avatars in a people list — screen readers hear an unlabeled image where a name should be |
+| Cap avatar groups at 4 with a "+N" chip, 25% overlap, 2px `cloud-0` rings | Don't stack 12 overlapping avatars — past 4 they're unidentifiable and the row becomes noise |
+| Use native `<details>`/`<summary>` for accordions and let multiple panels stay open | Don't force single-open accordions for FAQs — closing answer A while someone reads answer B loses their place |
+| Keep pricing, legal terms, and required steps expanded on desktop | Don't hide critical content in collapsed accordions — users don't open what they don't know exists |
 
 ## Checklist
 
@@ -246,6 +382,8 @@ Key: `text-sm` 500 `cloud-500`; value: `text-sm` `cloud-900`. Two-column grid, k
 - [ ] Stats: `text-4xl` 700 value, `text-sm` `cloud-600` label, delta = color + arrow
 - [ ] Pagination: `sky-600` current page with `aria-current`, ellipsis beyond 7 pages
 - [ ] All text meets 4.5:1 contrast; interactive targets ≥ 44×44px with spacing
+- [ ] Avatars: `radius-full`, name-hashed 100-tint fallback with 700-shade initials, `alt`/`aria-label` with the full name
+- [ ] Accordions: 48–56px button headers, 20px chevron rotating 180° in 250ms, no critical content collapsed on desktop
 
 ## Related
 

@@ -73,6 +73,24 @@ Icon (32px, `cloud-400`) + title (`text-lg` 600, `cloud-900`) + one-line explana
 - Determinate bar: track `cloud-100`, fill `sky-600`, height 8px, `radius-full`. Pair with a text percentage or step count — never color alone.
 - Indeterminate: use the spinner. Steps: "Step 2 of 4" label with the bar.
 
+### Dropdown menus (action / overflow "…" menus)
+
+Action menus that hang off a button — row actions, overflow "…" menus, "New…" split menus. These are **not** form selects; option pickers bound to a form value live in [10-forms-inputs.md](10-forms-inputs.md).
+
+| Property | Value |
+|---|---|
+| Trigger | A button with `aria-haspopup="menu"` and `aria-expanded` reflecting open state |
+| Surface | bg `cloud-0`, 1px border `cloud-200`, `radius-md` (10px), `elevation-3`, min-width 180px, padding `space-1` (4px) |
+| Items | 36px height, `text-sm` (14px/20px), padding-x `space-3` (12px), `radius-sm` (6px) |
+| Item states | Hover bg `cloud-100`; focus same as hover plus the 2px `sky-500` ring |
+| Destructive item | Text #DC2626, with a 1px `cloud-200` divider above it |
+| Icons | Optional 16px leading icon, `currentColor`, 1.5px stroke |
+| Position | Below the trigger, start-aligned, 4px gap; flips above/realigns when out of viewport |
+| z-index | 1000 (`dropdown`) |
+| Motion | Enter 250ms (`duration-base`) ease-out fade + 4px translate; exit 150ms ease-in |
+| Keyboard | Enter/Space/ArrowDown open and focus the first item; ArrowUp/Down move (wrapping); Esc closes and returns focus to the trigger; typing jumps to a matching item (typeahead) |
+| Size cap | Max ~8 items — beyond that, use a dialog, a dedicated page, or a searchable select instead |
+
 ## Tokens
 
 ```css
@@ -85,6 +103,7 @@ Icon (32px, `cloud-400`) + title (`text-lg` 600, `cloud-900`) + one-line explana
 
   /* Overlay surfaces */
   --cds-scrim: rgba(2, 6, 23, 0.5);
+  --cds-elevation-3: 0 4px 8px rgba(15,23,42,0.05), 0 8px 16px rgba(15,23,42,0.08);
   --cds-elevation-4: 0 8px 16px rgba(15,23,42,0.06), 0 16px 32px rgba(15,23,42,0.10);
   --cds-elevation-5: 0 12px 24px rgba(15,23,42,0.08), 0 24px 48px rgba(15,23,42,0.12);
 
@@ -107,6 +126,7 @@ Icon (32px, `cloud-400`) + title (`text-lg` 600, `cloud-900`) + one-line explana
 
   /* Layers */
   --cds-z-scrim: 1300; --cds-z-modal: 1400; --cds-z-toast: 1700;
+  --cds-z-dropdown: 1000;
 }
 ```
 
@@ -204,6 +224,49 @@ Icon (32px, `cloud-400`) + title (`text-lg` 600, `cloud-900`) + one-line explana
 @media (prefers-reduced-motion: reduce) { .cds-skeleton::after { animation: none; } }
 ```
 
+### Dropdown menu
+
+```html
+<button class="cds-btn cds-btn--secondary" aria-haspopup="menu" aria-expanded="true" id="row-actions">
+  More actions
+</button>
+<div class="cds-menu" role="menu" aria-labelledby="row-actions">
+  <button class="cds-menu__item" role="menuitem">Rename project</button>
+  <button class="cds-menu__item" role="menuitem">Duplicate project</button>
+  <button class="cds-menu__item" role="menuitem">Export settings</button>
+  <button class="cds-menu__item cds-menu__item--destructive" role="menuitem">Delete project</button>
+</div>
+```
+
+```css
+.cds-menu {
+  position: absolute; margin-top: 4px;      /* below-start, 4px gap; flip when out of viewport */
+  min-width: 180px; padding: 4px;           /* space-1 */
+  background: #FFFFFF;                      /* cloud-0 */
+  border: 1px solid #E2E8F0;                /* cloud-200 */
+  border-radius: var(--cds-radius-md);
+  box-shadow: var(--cds-elevation-3);
+  z-index: var(--cds-z-dropdown);
+}
+.cds-menu__item {
+  display: flex; align-items: center; gap: 8px;
+  width: 100%; height: 36px; padding: 0 12px;    /* space-3 */
+  font-size: 14px; line-height: 20px;            /* text-sm */
+  color: #0F172A;                                /* cloud-900 */
+  border-radius: 6px;                            /* radius-sm */
+  background: none; border: 0; text-align: left; cursor: pointer;
+}
+.cds-menu__item:hover,
+.cds-menu__item:focus-visible { background: #F1F5F9; }  /* cloud-100 */
+.cds-menu__item:focus-visible { outline: 2px solid #0EA5E9; outline-offset: -2px; }
+.cds-menu__item--destructive {
+  color: #DC2626;
+  border-top: 1px solid #E2E8F0; border-radius: 0 0 6px 6px;  /* divider above */
+}
+```
+
+Keyboard: the trigger opens on Enter, Space, or ArrowDown and moves focus to the first item; ArrowUp/Down cycle with wrapping; Esc closes and returns focus to the trigger; typing a letter jumps to the next matching item.
+
 ## ✅ Do / ❌ Don't
 
 | ✅ Do | ❌ Don't |
@@ -220,6 +283,10 @@ Icon (32px, `cloud-400`) + title (`text-lg` 600, `cloud-900`) + one-line explana
 | Put the primary action on the right of the modal footer, cancel to its left | Don't reorder actions per modal — inconsistent placement causes destructive misclicks |
 | Give empty states an icon, a title, one line of explanation, and a primary action | Don't render a blank white region or just "No data" — dead ends stall new users |
 | Pair progress bars with "Step 2 of 4" or a percentage | Don't rely on the `sky-600` fill alone to show progress — it's invisible to some users |
+| Keep menu item labels verb-first: "Rename project", "Export settings" | Don't label items with bare nouns like "Settings…" in an action menu — users can't predict what selecting one does |
+| Reserve action menus for commands; route option-picking to a form select | Don't put form inputs, checkboxes, or search fields inside an action menu — that's a select or a popover form, not a menu |
+| Keep menus flat, or one submenu level at the absolute most | Don't nest submenus two levels deep — hover corridors are undriveable; prefer no submenus and split the menu instead |
+| Cap menus at ~8 items with the destructive item last, divided above | Don't ship a 15-item scrolling menu — past ~8 items use a dialog or a searchable pattern |
 
 ## Checklist
 
@@ -232,6 +299,8 @@ Icon (32px, `cloud-400`) + title (`text-lg` 600, `cloud-900`) + one-line explana
 - [ ] Destructive confirm uses a #DC2626 button labeled with verb + noun
 - [ ] Skeletons for content, spinners for actions; zero layout shift when content arrives
 - [ ] All enter/exit animation is transform/opacity and respects `prefers-reduced-motion`
+- [ ] Dropdown menus: `elevation-3` surface, 36px items, destructive item last with divider, ≤ ~8 items
+- [ ] Menu trigger carries `aria-haspopup`/`aria-expanded`; Esc closes and returns focus; arrows and typeahead work
 
 ## Related
 

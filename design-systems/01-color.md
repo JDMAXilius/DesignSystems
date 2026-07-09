@@ -9,6 +9,51 @@
 4. **One hero moment.** The signature gradient appears at most once per view, on the thing that matters most.
 5. **Tokens, not hex.** Components reference semantic tokens (`--cds-color-text-primary`), never raw values.
 
+## Color theory primer
+
+A short grounding in why the CDS palette is built the way it is. Skim it before extending the palette or building a theme.
+
+### Hue, saturation, lightness
+
+- **Hue** is the color's position on the 360° color wheel — red near 0°, green near 120°, blue near 240°. Hue carries meaning: Sky sits at ~199°, Twilight at ~243°, Sun amber at ~38°. When we say "same hue, different step," we mean the wheel angle stays put while the other two dimensions move.
+- **Saturation** is intensity — how far the color sits from gray. Fully saturated hues vibrate and tire the eye; CDS keeps mid-ramp steps at moderate, similar perceived saturation so surfaces stay calm and no single accent screams louder than its role deserves.
+- **Lightness** is how close the color is to white or black, and it is the workhorse dimension: every 50–900 ramp in this doc is one hue walked down the lightness axis. Lightness — not hue — is what creates contrast, so it decides what passes AA.
+
+### Tint, tone, shade
+
+| Term | Definition | CDS example |
+|---|---|---|
+| Tint | Hue + white (lighter, softer) | sky-50 #F0F9FF, the info tint background |
+| Tone | Hue + gray (muted, desaturated) | the cloud ramp — blue-toned grays |
+| Shade | Hue + black (darker, deeper) | sky-800 #075985, the active/pressed step |
+
+Status "tint treatments" (tint bg + tint border + shade-level text) are exactly this: a tint carries the surface, a shade carries the readable text.
+
+### The color wheel and where CDS sits
+
+- **Analogous** colors are neighbors on the wheel. Sky (#0284C7, hue ~199°) and Twilight (#4F46E5, hue ~243°) sit ~44° apart — an analogous pair. Analogous schemes read as calm and harmonious, which is the cloud personality: the two accents blend rather than fight, and the signature gradient works because it travels a short arc of the wheel.
+- **Complementary** colors sit opposite each other (~180° apart). Sun amber (#F59E0B, hue ~38°) is the near-complement of Sky — and that is precisely why it works as the warning/attention color: against a cool sky-and-cloud UI, amber pops with maximum chromatic contrast. The palette's one warm accent is warm *on purpose*.
+- **Triadic** schemes (three hues 120° apart) produce energetic, carnival-like palettes. CDS deliberately avoids them for UI chrome; the status colors are the only sanctioned extra hues, and each has one fixed job.
+
+### Color psychology
+
+| Color | Association | Why CDS uses it |
+|---|---|---|
+| Blue (Sky) | Trust, calm, competence | The primary — the safest, most universally positive hue for interactive elements |
+| Indigo (Twilight) | Depth, quality, imagination | The secondary — adds richness without leaving the cool, calm family |
+| Green (Meadow) | Success, growth, go | Success status — reinforced by decades of traffic-light and checkmark convention |
+| Amber (Sun) | Attention, caution | Warning status — warm enough to interrupt, not alarming enough to panic |
+| Red (Coral) | Urgency, danger, stop | Danger/destructive — the one color users are wired to treat as a stop sign |
+
+Status colors follow universal conventions on purpose: users arrive pre-trained by traffic lights, error dialogs, and every other product they use. Inventing a novel status mapping (purple for errors, blue for success) forces relearning and causes real mistakes.
+
+### Choosing colors for a new brand theme
+
+1. **Pick one hue.** Choose the brand's primary wheel angle first; resist picking three.
+2. **Build a 50–900 ramp by varying lightness** at similar perceived saturation — light tints for backgrounds, a 600-level step that passes 4.5:1 on white for interactive, 700/800 shades for hover/active. Don't ramp saturation up as you go dark; keep the steps feeling like one family.
+3. **Keep neutrals slightly cool-tinted toward the hue.** Pure gray next to a tinted accent looks dirty; the cloud ramp leans blue for exactly this reason. A theme built on a warm primary would tint its neutrals warm instead.
+4. **Leave status colors alone.** Success, warning, and danger keep their conventional hues in every theme.
+
 ## The system
 
 ### Neutrals — "Cloud" (cool gray ramp)
@@ -258,6 +303,9 @@ Hero with the signature gradient (once per view):
 | Use cloud-950 pages and cloud-50 text in dark mode | Don't use pure black (#000000) backgrounds or pure white text — the harsh contrast breaks the calm, tinted feel |
 | Pair every status color with an icon and message text | Don't mark a failed row with a red border alone — colorblind users can't see the state |
 | Reference semantic tokens (`--cds-color-text-primary`) in components | Don't hardcode #0F172A in component CSS — hardcoded hex silently breaks dark mode |
+| Build new ramps by varying lightness at similar perceived saturation | Don't build palettes from pure-saturation hues — 100%-saturated steps vibrate, fail contrast unpredictably, and never feel like one family |
+| Stay in the analogous sky–twilight family for accents; amber is the one sanctioned warm pop | Don't scatter triadic rainbow accents through one UI — three equidistant hues fight for attention and erase the hierarchy |
+| Derive hover and active as lightness steps of the same hue (sky-600 → 700 → 800) | Don't shift hue on interaction — a button that turns purple on hover reads as a different control, not a state |
 
 ## Checklist
 
@@ -270,6 +318,8 @@ Hero with the signature gradient (once per view):
 - [ ] All colors referenced via `--cds-color-*` tokens, no raw hex in components
 - [ ] Dark mode uses cloud-950/900 surfaces and sky-400 interactive — no pure black/white
 - [ ] Focus states use the sky-500 ring at 2px offset on every interactive element
+- [ ] Hover/active states are lightness steps of the same hue, never a hue change
+- [ ] Any new theme ramp keeps status colors conventional and tints its neutrals toward the brand hue
 
 ## Related
 
