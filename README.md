@@ -1,13 +1,14 @@
 # Design Systems
 
-This repository hosts **two independent design systems**:
+This repository hosts **three independent design systems**:
 
 | System | Where | What it is |
 | --- | --- | --- |
-| ☁️ **Cloud** | [`design-systems/cloud/`](design-systems/cloud/) | A complete documentation-first design system (26 docs with do's & don'ts) for building any page or website. Sky blue / twilight indigo, Plus Jakarta Sans, `--cds-*` tokens. |
-| 🔷 **Maxilius** | [`design-systems/maxilius/`](design-systems/maxilius/) + code below | A code-first design system: design tokens, React components, Storybook — now with a matching doc set extracted from the code. Blue / teal / amber, Inter, `--mx-*` tokens. |
+| ☁️ **Cloud** | [`design-systems/cloud/`](design-systems/cloud/) | A documentation-first design system (26 docs with do's & don'ts) for building any page or website. Sky blue / twilight indigo, Plus Jakarta Sans, `--cds-*` tokens. |
+| 🔷 **Maxilius** | [`design-systems/maxilius/`](design-systems/maxilius/) + code below | A code-first web design system: design tokens, React components, Storybook — with a matching doc set extracted from the code. Blue / teal / amber, Inter, `--mx-*` tokens. |
+| 🌌 **Aurora** | [`design-systems/aurora/`](design-systems/aurora/) | An iOS-first **mobile** design system documented for **SwiftUI + React Native**, unified by one token pipeline. Single midnight appearance, violet / teal / pink accents, `Aurora.*` / `tokens.*`. |
 
-The two systems are fully separate: different palettes, fonts, token prefixes, and docs.
+The three systems are fully separate: different targets, palettes, fonts, token names, and docs.
 Pick one per project — never mix them.
 
 ---
