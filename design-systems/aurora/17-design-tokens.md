@@ -162,8 +162,8 @@ export type Tokens = typeof tokens;
 export const auroraPreset = {
   theme: { extend: {
     colors:       { 'action-primary': '#7C6CFF', 'text-primary': '#F4F6FB' },
-    borderRadius: { md: '14px', lg: '20px' },     // NativeWind maps to dp at runtime
-    spacing:      { '3': '12px', '4': '16px' },
+    borderRadius: { md: 14, lg: 20 },     // NativeWind maps to dp at runtime
+    spacing:      { '3': 12, '4': 16 },
   } },
 };
 ```
@@ -274,8 +274,8 @@ export function PrimaryButton({ title, onPress }: Props) {
 - [ ] Figma variables are imported from the generated `variables.json`.
 
 ## Related
-- `./01-color.md` — the primitive palette these tokens name
-- `./02-typography.md` — the type ramp behind `font.*`
+- `./02-color.md` — the primitive palette these tokens name
+- `./03-typography.md` — the type ramp behind `font.*`
 - `./03-spacing-layout-grid.md` — the 4pt scale behind `space.*`
 - `./15-feedback-status.md` — feedback tokens consumed downstream
 - `./16-data-display.md` — data-display tokens consumed downstream

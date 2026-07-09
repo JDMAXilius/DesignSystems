@@ -3,6 +3,17 @@
 
 Aurora is an iOS-first mobile design system with two implementations — SwiftUI and React Native. These principles are the constitution. Everything downstream (color, type, spacing, components) is an expression of them. When a token table and a principle disagree, the principle wins and the table is a bug.
 
+### What Aurora is, and is not
+
+| Aurora is | Aurora is not |
+|---|---|
+| iOS-first, mobile-only (SwiftUI + React Native) | A web or desktop system |
+| A single fixed dark "midnight" appearance | A light/dark theming engine |
+| Luminous — ink canvas, scarce aurora accent | Colorful — accents everywhere |
+| Tactile — spring motion, haptics, pressable surfaces | Static — linear fades, silent taps |
+| Token-driven, one source for both platforms | Hand-tuned per screen or per platform |
+| Accessible as a gate (AA is the floor) | Accessible as an afterthought |
+
 ## Principles
 
 **1. iOS-first, native-feeling.** Default to Apple's Human Interface Guidelines. Aurora should feel like it was born on iOS — large collapsing titles, bottom sheets with detents, edge-swipe back, SF Symbols, spring physics, haptics. Android is supported through React Native and stays first-class, but iOS is the source of truth; Android follows Material only where following iOS would feel foreign on the platform.
@@ -40,7 +51,14 @@ Aurora is a brand, and the brand is the midnight canvas lit by aurora accents. F
 - **SwiftUI** pins the root with `.preferredColorScheme(.dark)` and uses fixed `Color` values — no `Color(UIColor { ... })` dynamic providers.
 - **React Native** never reads `useColorScheme()`; it sets `UIUserInterfaceStyle = Dark` in `Info.plist` so system chrome (keyboard, share sheets, status bar) matches the fixed dark canvas.
 
-This is a deliberate trade: we give up "respects my phone's theme" to gain a single, tuned, always-correct appearance. Because there is one mode, every contrast pair can be verified once and trusted forever.
+This is a deliberate trade: we give up "respects my phone's theme" to gain a single, tuned, always-correct appearance. What we get in return:
+
+- **One thing to design.** No parallel light palette, no doubled component states, no "how does this look in light mode" review.
+- **One thing to verify.** Every contrast pair is computed once against ink-950 (see [02-color.md](02-color.md)) and trusted forever.
+- **A stronger brand.** The midnight canvas is unmistakably Aurora — the OS does not get to repaint it.
+- **Simpler tokens.** Each token has a single `$value`; there is no `$modes`, no theme-switch plumbing, no runtime provider.
+
+The cost is real and we accept it: a user who prefers light interfaces still gets Aurora's dark canvas. We mitigate with high contrast, honored Dynamic Type, and Reduce Transparency support so the fixed appearance stays comfortable and legible.
 
 ## How principles resolve conflicts
 
@@ -64,7 +82,37 @@ Worked examples:
 
 When principles genuinely tie — two options both satisfy every higher principle — choose the one that is more iOS-native, then the one that is simpler to maintain. Document the call in the component doc so the next person inherits the reasoning, not just the result.
 
+## Non-negotiables
+
+Most principles leave room for judgment. These five do not — they are hard invariants that a review must reject on sight:
+
+- **Single mode.** No light/dark, no `$modes`, no `useColorScheme()`, no dynamic `Color` providers.
+- **44pt touch floor.** Every interactive target is ≥44×44pt (48dp Android), no exceptions.
+- **AA contrast.** No text or UI element ships below its WCAG 2.2 AA threshold against ink-950.
+- **System font.** UI text is SF Pro / Roboto so Dynamic Type works — no bundled UI fonts, no `allowFontScaling={false}`.
+- **Tokens are the source.** No hardcoded hex, size, or radius that a token already carries.
+
+Everything else is a matter of applying the priority order well.
+
+## How these principles show up downstream
+
+Every foundation and component doc is one of these principles made concrete. If you ever wonder *why* a rule exists, trace it back here.
+
+| Principle | Where it becomes a rule |
+|---|---|
+| iOS-first, native-feeling | Nav stacks, detented sheets, edge-swipe, SF Symbols — [01-platforms-conventions.md](01-platforms-conventions.md) |
+| Luminous and tactile | The ink canvas, scarce accent, 60-30-10, aurora glow, continuous corners — [02-color.md](02-color.md) |
+| Touch-first | The 44pt floor, ≥8pt gaps, `hitSlop`/`contentShape` guidance in every interactive doc |
+| Motion and haptics are the feel | Spring tokens, haptic-by-intent rules, Reduce Motion fallbacks in interaction docs |
+| One fixed appearance | Single-mode tokens, `.preferredColorScheme(.dark)`, `UIUserInterfaceStyle=Dark` throughout |
+| Accessible by default | AA contrast tables, VoiceOver labels, Dynamic Type reflow — [03-typography.md](03-typography.md), [02-color.md](02-color.md) |
+| One system, two platforms | The DTCG → `Aurora.*` / `tokens.*` pipeline every doc's Tokens section references |
+
+Use this doc as the tie-breaker. When a review comment says "but I like it this way," the answer is a principle and its priority — not taste.
+
 ## Do / Don't
+
+These pairs are the principles at the resolution of a single design decision. Keep them within reach during review.
 
 | ✅ Do | ❌ Don't |
 |---|---|
@@ -89,7 +137,8 @@ When principles genuinely tie — two options both satisfy every higher principl
 - [ ] Do all text/accent pairs meet AA against ink-950, verified not assumed?
 - [ ] Is every status conveyed with icon + label, never color alone?
 - [ ] Are all values sourced from tokens and identical across SwiftUI and RN?
-- [ ] When two principles collided, was the higher-priority one honored?
+- [ ] Does the design clear all five non-negotiables (single mode, 44pt, AA, system font, tokens)?
+- [ ] When two principles collided, was the higher-priority one honored and the call documented?
 
 ## Related
 

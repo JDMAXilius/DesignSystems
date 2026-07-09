@@ -174,9 +174,9 @@ export function AuroraButton({ title, onPress, loading }: Props) {
 
 ## Related
 
-- [01 · Color](01-color.md)
-- [05 · Shape & radius](05-shape-radius.md)
-- [08 · Motion & animation](08-motion-animation.md)
+- [01 · Color](02-color.md)
+- [05 · Shape & radius](04-layout-spacing-safe-areas.md)
+- [08 · Motion & animation](07-motion-haptics.md)
 - [10 · Forms & inputs](10-forms-inputs.md)
 - [11 · Navigation](11-navigation.md)
-- [15 · Accessibility](15-accessibility.md)
+- [15 · Accessibility](20-accessibility.md)

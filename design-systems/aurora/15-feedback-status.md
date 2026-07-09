@@ -52,7 +52,7 @@ Leading SF Symbol + `subheadline` text, tint background + 1pt border, `radius-md
 | Danger | `xmark.octagon.fill` | `#FF8A85` | rgba(244,84,78,0.14) | rgba(244,84,78,0.30) |
 | Info | `info.circle.fill` | `#7BF3DC` | rgba(76,235,203,0.14) | rgba(76,235,203,0.30) |
 
-Toasts use the same recipe on `ink-800` at the top layer (z 70) above the safe-area inset — see `./08-motion-animation.md` for entry springs.
+Toasts use the same recipe on `ink-800` at the top layer (z 70) above the safe-area inset — see `./07-motion-haptics.md` for entry springs.
 
 ### Badges & count indicators
 | Placement | Recipe |
@@ -209,6 +209,6 @@ function Banner() {
 ## Related
 - `./13-navigation.md` — tab bar where count badges live
 - `./12-cards-surfaces.md` — surfaces skeletons stand in for
-- `./08-motion-animation.md` — springs, Reduce Motion, toast entry
+- `./07-motion-haptics.md` — springs, Reduce Motion, toast entry
 - `./16-data-display.md` — badges, tags, and status dots on data
 - `./17-design-tokens.md` — the semantic tokens consumed above

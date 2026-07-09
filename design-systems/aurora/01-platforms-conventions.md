@@ -17,11 +17,15 @@ Aurora is mobile-only: no web, no desktop. It ships on two runtimes — **SwiftU
 
 ### When to follow HIG vs Material
 
+The rule is simple: HIG by default, Material only where an iOS pattern would feel foreign on Android.
+
 | Situation | Follow |
 |---|---|
 | Default for any pattern | **Apple HIG** |
 | Navigation chrome, back affordance, system font, symbol set on Android | **Material** (only these) |
 | Everything else on Android | **HIG-derived**, using Aurora tokens |
+
+How to decide for a new pattern: (1) build the iOS/HIG version first; (2) put it on an Android device and ask "does this feel wrong here?"; (3) if yes, take the Material equivalent and add it to the divergence list below; (4) if no, ship the same behavior on both. The divergence list is closed by default — adding to it is a deliberate, reviewed act, not a convenience.
 
 ### Where iOS and Android must diverge
 

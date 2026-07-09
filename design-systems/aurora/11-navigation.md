@@ -173,9 +173,9 @@ export function RootTabs() {
 
 ## Related
 
-- [01 · Color](01-color.md)
-- [04 · Elevation & depth](04-elevation-depth.md)
-- [08 · Motion & animation](08-motion-animation.md)
+- [01 · Color](02-color.md)
+- [04 · Elevation & depth](06-elevation-depth-materials.md)
+- [08 · Motion & animation](07-motion-haptics.md)
 - [09 · Buttons & actions](09-buttons-actions.md)
 - [10 · Forms & inputs](10-forms-inputs.md)
-- [15 · Accessibility](15-accessibility.md)
+- [15 · Accessibility](20-accessibility.md)

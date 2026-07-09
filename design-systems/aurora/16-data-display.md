@@ -203,8 +203,8 @@ function Stat({ value, label, delta }: StatProps) {
 - [ ] All colors come from semantic tokens, never inline hex.
 
 ## Related
-- `./01-color.md` — accent families and status recipes
-- `./02-typography.md` — the type ramp and `monospacedDigit`
+- `./02-color.md` — accent families and status recipes
+- `./03-typography.md` — the type ramp and `monospacedDigit`
 - `./12-cards-surfaces.md` — KPI cards and grouped surfaces
 - `./15-feedback-status.md` — badges, count indicators, status dots
 - `./17-design-tokens.md` — the semantic tokens consumed above

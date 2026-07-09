@@ -56,7 +56,7 @@ Every interactive element needs four things, in priority order:
 
 ### Dynamic Type
 
-- Support it everywhere by mapping every text style to an iOS text style (see [02-typography.md](02-typography.md)); never hard-code a frozen point size for body text.
+- Support it everywhere by mapping every text style to an iOS text style (see [03-typography.md](03-typography.md)); never hard-code a frozen point size for body text.
 - Layouts **reflow**: labels wrap, rows grow taller, horizontal button pairs stack vertically at large sizes. Nothing clips or truncates critical content.
 - **Test at accessibility sizes** (AX1–AX5). Cap extremes with layout (line limits on decorative text, scroll containers), not by locking the font size.
 - Icons paired with text scale with the text (SwiftUI `.imageScale` / SF Symbol text-style sizing).
@@ -76,7 +76,7 @@ Every interactive element needs four things, in priority order:
 
 ### Never color-only
 
-Pair every color signal with a second cue: success uses a checkmark, danger uses an exclamation glyph + label, selection uses a checkmark or filled state, links use teal **and** are the tappable words. See [status colors in 01-color.md](01-color.md).
+Pair every color signal with a second cue: success uses a checkmark, danger uses an exclamation glyph + label, selection uses a checkmark or filled state, links use teal **and** are the tappable words. See [status colors in 02-color.md](02-color.md).
 
 ## Process
 
@@ -189,9 +189,9 @@ import { Pressable, Text, View, Image, AccessibilityInfo } from 'react-native';
 ## Related
 
 - [00 · Design principles](00-design-principles.md)
-- [01 · Color](01-color.md)
-- [02 · Typography](02-typography.md)
+- [01 · Color](02-color.md)
+- [02 · Typography](03-typography.md)
 - [04 · Layout, spacing & safe areas](04-layout-spacing-safe-areas.md)
-- [08 · Motion & animation](08-motion-animation.md)
+- [08 · Motion & animation](07-motion-haptics.md)
 - [09 · Buttons & actions](09-buttons-actions.md)
 - [21 · Content, voice & tone](21-content-voice-tone.md)

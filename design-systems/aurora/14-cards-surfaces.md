@@ -165,7 +165,7 @@ export function InteractiveCard({ trip, onPress }: Props) {
 ## Related
 - [13 · Lists & collections](./13-lists-collections.md)
 - [12 · Modals, sheets & overlays](./12-modals-sheets-overlays.md)
-- [05 · Elevation & materials](./05-elevation-materials.md)
-- [03 · Color](./03-color.md)
-- [06 · Shape & radius](./06-shape-radius.md)
-- [08 · Haptics](./08-haptics.md)
+- [05 · Elevation & materials](./06-elevation-depth-materials.md)
+- [03 · Color](./02-color.md)
+- [06 · Shape & radius](./04-layout-spacing-safe-areas.md)
+- [08 · Haptics](./07-motion-haptics.md)
