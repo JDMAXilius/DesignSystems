@@ -171,5 +171,5 @@ Tooltip on an icon-only button:
 
 - [12-cards-surfaces.md](./12-cards-surfaces.md) — cards that host tables and stat tiles
 - [13-feedback.md](./13-feedback.md) — transient status (toasts) vs. persistent status (badges)
-- [03-typography.md](./03-typography.md) — the full type scale behind these slots
-- [05-iconography.md](./05-iconography.md) — the 18 built-in icons used in lists and tooltips
+- [02-typography.md](./02-typography.md) — the full type scale behind these slots
+- [06-iconography.md](./06-iconography.md) — the 18 built-in icons used in lists and tooltips

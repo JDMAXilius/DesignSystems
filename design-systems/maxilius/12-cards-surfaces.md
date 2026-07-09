@@ -156,7 +156,7 @@ Media card: use `flush` so the image runs edge to edge, then pad the text block 
 
 ## Related
 
-- [10-buttons-actions.md](./10-buttons-actions.md) — footer action variants and temperature rules
+- [09-buttons.md](./09-buttons.md) — footer action variants and temperature rules
 - [13-feedback.md](./13-feedback.md) — toasts and overlays that float above surfaces
 - [14-data-display.md](./14-data-display.md) — tables and lists that live inside cards
 - [04-elevation-depth.md](./04-elevation-depth.md) — the full shadow scale

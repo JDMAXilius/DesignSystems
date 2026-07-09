@@ -155,5 +155,5 @@ CSS — an inline warning alert from the feedback tokens:
 
 - [12-cards-surfaces.md](./12-cards-surfaces.md) — the surfaces feedback floats above
 - [14-data-display.md](./14-data-display.md) — badges for persistent status (vs. transient feedback)
-- [10-buttons-actions.md](./10-buttons-actions.md) — loading buttons and danger confirmations
-- [02-color.md](./02-color.md) — the warm/cool temperature system behind the variants
+- [09-buttons.md](./09-buttons.md) — loading buttons and danger confirmations
+- [01-color.md](./01-color.md) — the warm/cool temperature system behind the variants
